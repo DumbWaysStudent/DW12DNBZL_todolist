@@ -14,7 +14,7 @@ import { black } from 'ansi-colors';
 export default class App extends Component{
 
   render() {
-    const todos = ['Work','Swim','Study','Sleep','Run'];
+    const todos = ['Work','Swim','Studys','Sleep','Run'];
 
     return (
       <View style= {styles.container}>
