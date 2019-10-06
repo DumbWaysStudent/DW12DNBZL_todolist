@@ -18,6 +18,15 @@ export default class App extends Component{
       todos : ['Work','Swim','Study','Sleep','Run']
     }
   }
+  onRemoveItem = i => {
+    this.setState(state => {
+      const todos = state.todos.filter((todo, j) => i !== j);
+      return {
+        todos,
+      };
+    });
+  };
+
   render() {
 
     return (
@@ -29,14 +38,21 @@ export default class App extends Component{
           value={this.state.string}
           />
           <Button title="Add" style={{paddingHorizontal: 1}}
-          onPress={(value) => this.setState({cars : this.state.todos.push(this.state.string)})}
+          onPress={(value) => this.setState({todo : this.state.todos.push(this.state.string)})}
           >
           </Button>
         </View>
         <View>
-        {this.state.todos.map((todo)=>{
-          return <Text style = {styles.text}>{todo}</Text>
-        })}
+        {this.state.todos.map((todo,index)=>{
+          return (
+          <View style={styles.fixToText}>
+          <Text style = {styles.text} key = {todo}>{todo}</Text> 
+          <Button title="Delete" onPress={() => this.onRemoveItem(index)}
+           ></Button>
+          </View>
+            )
+        }
+        )}
         </View>
       </View>
     )
@@ -53,11 +69,18 @@ const styles = StyleSheet.create ({
        borderBottomColor: 'black',
        borderBottomWidth: 2,
        paddingBottom: 5,
-       paddingTop:5
+       paddingTop:5,
+       width : 300
     },
     fixToText: {
       flexDirection: 'row',
       alignContent: 'stretch',
-      paddingHorizontal: 3
+      paddingHorizontal: 5
+    },
+    justText: {
+      flexDirection: 'row',
+      alignContent: 'stretch',
+      paddingHorizontal: 5,
+      width: 300
     },
  })
