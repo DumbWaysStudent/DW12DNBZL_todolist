@@ -16,7 +16,9 @@ export default class App extends Component{
     super(props)
     this.state={
       todos : ['Work','Swim','Study','Sleep','Run'],
-      checked : true
+      checked : {},
+      marked : {},
+      string : ''
     }
   }
   onRemoveItem = i => {
@@ -27,14 +29,15 @@ export default class App extends Component{
       };
     });
   };
-
+  
   onChangeCheck = (todo) => {
     const checkCopy = {...this.state.checked}
-    if (checkCopy[todo]) checkCopy[todo] = false;
-    else checkCopy[todo] = true;
-    this.setState({ checked: checkCopy});
+    if (checkCopy[todo]) checkCopy[todo] = false; 
+    else checkCopy[todo] = true; 
+    this.setState({ checked: checkCopy})
+    
   }
-
+  
   render() {
 
     return (
@@ -56,16 +59,20 @@ export default class App extends Component{
           <View style={styles.fixToText}>
             <CheckBox
               value = {this.state.checked[index]}
-              onChange = {() => this.onChangeCheck(index)}
+              onChange = {() => this.onChangeCheck(todo)}
             />
-          <Text style = {styles.text} key = {todo}>{todo}</Text> 
+          <Text style = {styles.text} key = {todo}>{todo}</Text>
+          <Button title="Update" onPress={() => this.setState({string : this.state.string = JSON.stringify(this.state.checked)})}
+           ></Button> 
           <Button title="Delete" onPress={() => this.onRemoveItem(index)}
            ></Button>
           </View>
             )
         }
         )}
+        <Text></Text>
         </View>
+        
       </View>
     )
   }
@@ -82,7 +89,7 @@ const styles = StyleSheet.create ({
        borderBottomWidth: 2,
        paddingBottom: 5,
        paddingTop:5,
-       width : 200
+       width : 220
     },
     fixToText: {
       flexDirection: 'row',
@@ -93,6 +100,6 @@ const styles = StyleSheet.create ({
       flexDirection: 'row',
       alignContent: 'stretch',
       paddingHorizontal: 5,
-      width: 150
+      width: 300
     },
  })
